@@ -2,10 +2,9 @@ package com.shirajsayed.wanttolearndagger2.ui.auth;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.shirajsayed.wanttolearndagger2.SessionManager;
 import com.shirajsayed.wanttolearndagger2.models.User;
 import com.shirajsayed.wanttolearndagger2.network.AuthApi;
 
@@ -21,12 +20,14 @@ public class AuthViewModel extends ViewModel {
     private static final String TAG = "AuthViewModel";
 
     private final AuthApi authApi;
-
-    private MediatorLiveData<AuthResource<User>> authUser = new MediatorLiveData<>();
+    private SessionManager sessionManager;
 
     void authenticWithId(int userId) {
-        authUser.setValue(AuthResource.loading((User) null));
-        final LiveData<AuthResource<User>> source = LiveDataReactiveStreams.fromPublisher(
+        sessionManager.authenticateWithId(queryUserId(userId));
+    }
+
+    private LiveData<AuthResource<User>> queryUserId(int userId) {
+        return LiveDataReactiveStreams.fromPublisher(
                 authApi.getUser(userId)
                         .onErrorReturn(new Function<Throwable, User>() {
                             @Override
@@ -47,22 +48,15 @@ public class AuthViewModel extends ViewModel {
                         })
                         .subscribeOn(Schedulers.io())
         );
-
-        authUser.addSource(source, new Observer<AuthResource<User>>() {
-            @Override
-            public void onChanged(AuthResource<User> user) {
-                authUser.setValue(user);
-                authUser.removeSource(source);
-            }
-        });
     }
 
-    LiveData<AuthResource<User>> observeUser() {
-        return authUser;
+    LiveData<AuthResource<User>> observeAuthState() {
+        return sessionManager.getAuthUser();
     }
 
     @Inject
-    public AuthViewModel(AuthApi authApi) {
+    public AuthViewModel(AuthApi authApi, SessionManager sessionManager) {
         this.authApi = authApi;
+        this.sessionManager = sessionManager;
     }
 }
