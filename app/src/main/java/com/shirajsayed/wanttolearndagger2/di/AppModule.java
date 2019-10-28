@@ -9,11 +9,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.shirajsayed.wanttolearndagger2.R;
+import com.shirajsayed.wanttolearndagger2.util.Constant;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author Shiraj Sayed
@@ -23,9 +27,19 @@ public class AppModule {
 
     @Singleton
     @Provides
+    static Retrofit provideRetrofitInstance() {
+        return new Retrofit.Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
+    @Singleton
+    @Provides
     static RequestOptions provideRequestOptions() {
         return RequestOptions
-                .placeholderOf(R.drawable.ic_placeholder)
+                .placeholderOf(R.drawable.ic_groot)
                 .error(R.drawable.ic_error);
     }
 
@@ -39,7 +53,7 @@ public class AppModule {
     @Singleton
     @Provides
     static Drawable provideAppDrawable(Application application) {
-        return ContextCompat.getDrawable(application, R.drawable.ic_placeholder);
+        return ContextCompat.getDrawable(application, R.drawable.ic_groot);
     }
 
 }
