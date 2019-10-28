@@ -3,7 +3,7 @@ package com.shirajsayed.wanttolearndagger2.di.auth;
 import androidx.lifecycle.ViewModel;
 
 import com.shirajsayed.wanttolearndagger2.di.ViewModelKey;
-import com.shirajsayed.wanttolearndagger2.ui.AuthViewModel;
+import com.shirajsayed.wanttolearndagger2.ui.auth.AuthViewModel;
 
 import dagger.Binds;
 import dagger.Module;
