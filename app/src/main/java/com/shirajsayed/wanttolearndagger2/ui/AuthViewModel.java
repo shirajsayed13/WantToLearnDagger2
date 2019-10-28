@@ -48,30 +48,5 @@ public class AuthViewModel extends ViewModel {
     @Inject
     public AuthViewModel(AuthApi authApi) {
         this.authApi = authApi;
-
-        authApi.getUser(1)
-                .toObservable()
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<User>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(User user) {
-                        Log.e(TAG, "onNext: Email " + user.getEmail());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 }
