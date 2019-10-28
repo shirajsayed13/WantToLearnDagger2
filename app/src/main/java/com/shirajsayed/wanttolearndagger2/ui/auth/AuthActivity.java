@@ -1,5 +1,6 @@
 package com.shirajsayed.wanttolearndagger2.ui.auth;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.RequestManager;
 import com.shirajsayed.wanttolearndagger2.R;
 import com.shirajsayed.wanttolearndagger2.models.User;
+import com.shirajsayed.wanttolearndagger2.ui.main.MainActivity;
 import com.shirajsayed.wanttolearndagger2.viewmodel.ViewModelProviderFactory;
 
 import javax.inject.Inject;
@@ -63,6 +65,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
                         case AUTHENTICATED:
                             showProgress(false);
                             Log.e(TAG, "onChanged: Authenticated Successfully " + userAuthResource.data);
+                            onLoginScreen();
                             break;
                         case ERROR:
                             showProgress(false);
@@ -76,6 +79,12 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
                 }
             }
         });
+    }
+
+    private void onLoginScreen() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void showProgress(boolean isVisible) {
