@@ -1,5 +1,6 @@
 package com.shirajsayed.wanttolearndagger2.di;
 
+import com.shirajsayed.wanttolearndagger2.di.auth.AuthViewModelsModule;
 import com.shirajsayed.wanttolearndagger2.ui.AuthActivity;
 
 import dagger.Module;
@@ -11,7 +12,8 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuildersModule {
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(
+            modules = {AuthViewModelsModule.class})
     abstract AuthActivity contributeAuthActivity();
 
 }
