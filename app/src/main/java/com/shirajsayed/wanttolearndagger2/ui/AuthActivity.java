@@ -1,16 +1,25 @@
-package com.shirajsayed.wanttolearndagger2;
+package com.shirajsayed.wanttolearndagger2.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import androidx.lifecycle.ViewModelProviders;
+
 import com.bumptech.glide.RequestManager;
+import com.shirajsayed.wanttolearndagger2.R;
+import com.shirajsayed.wanttolearndagger2.viewmodel.ViewModelProviderFactory;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class AuthActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+    private AuthViewModel viewModel;
 
     @Inject
     Drawable logo;
@@ -22,6 +31,8 @@ public class AuthActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
+
+        viewModel = ViewModelProviders.of(this, providerFactory).get(AuthViewModel.class);
 
         setLogo();
     }

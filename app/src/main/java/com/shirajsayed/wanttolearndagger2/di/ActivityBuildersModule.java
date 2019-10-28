@@ -1,6 +1,6 @@
 package com.shirajsayed.wanttolearndagger2.di;
 
-import com.shirajsayed.wanttolearndagger2.AuthActivity;
+import com.shirajsayed.wanttolearndagger2.ui.AuthActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
