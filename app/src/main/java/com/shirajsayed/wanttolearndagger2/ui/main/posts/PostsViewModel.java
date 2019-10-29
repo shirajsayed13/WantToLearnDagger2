@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.shirajsayed.wanttolearndagger2.SessionManager;
@@ -71,6 +72,13 @@ public class PostsViewModel extends ViewModel {
 
 
             );
+            posts.addSource(source, new Observer<Resource<List<Post>>>() {
+                @Override
+                public void onChanged(Resource<List<Post>> listResource) {
+                    posts.setValue(listResource);
+                    posts.removeSource(source);
+                }
+            });
         }
         return posts;
     }
