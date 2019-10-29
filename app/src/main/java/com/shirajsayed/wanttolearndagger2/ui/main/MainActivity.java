@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.shirajsayed.wanttolearndagger2.BaseActivity;
 import com.shirajsayed.wanttolearndagger2.R;
-import com.shirajsayed.wanttolearndagger2.ui.main.profile.ProfileFragment;
+import com.shirajsayed.wanttolearndagger2.ui.main.posts.PostsFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -23,7 +23,7 @@ public class MainActivity extends BaseActivity {
 
     private void testFragment() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, new ProfileFragment())
+                .replace(R.id.main_container, new PostsFragment())
                 .commit();
     }
 
